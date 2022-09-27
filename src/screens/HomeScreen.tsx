@@ -4,6 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { usePersonajesPaginated } from '../hooks/usePersonajesPaginated';
 import { styles } from '../theme/appTheme';
+import { FadeInImage } from '../components/FadeInImage';
 
 export const HomeScreen = () => {
 
@@ -22,8 +23,8 @@ export const HomeScreen = () => {
         data={simplePersonajeList}
         keyExtractor={(personaje) => personaje.id}
         renderItem={({ item }) => (
-          <Image 
-          source={{uri: item.picture}}
+          <FadeInImage
+          uri={item.picture}
           style={{
             width: 150,
             height: 150,
