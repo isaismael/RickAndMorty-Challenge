@@ -1,10 +1,10 @@
 import React from 'react'
-import { Image, Text, View, ActivityIndicator } from 'react-native';
+import { Image, ActivityIndicator, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { PersonajeCard } from '../components/PersonajeCard';
 import { usePersonajesPaginated } from '../hooks/usePersonajesPaginated';
 import { styles } from '../theme/appTheme';
-import { FadeInImage } from '../components/FadeInImage';
 
 export const HomeScreen = () => {
 
@@ -19,37 +19,42 @@ export const HomeScreen = () => {
         style={styles.rickBG}
       />
 
-      <FlatList
-        data={simplePersonajeList}
-        keyExtractor={(personaje) => personaje.id}
-        renderItem={({ item }) => (
-          <FadeInImage
-          uri={item.picture}
-          style={{
-            width: 150,
-            height: 150,
-          }}
-          />
-        )}
+      <View
+        style={{
+          alignItems: 'center',}}
+      >
+        <FlatList
+          data={simplePersonajeList}
+          keyExtractor={(personaje) => personaje.id}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          // HeaderCompont
+          ListHeaderComponent={(
+            <Text style={{
+              ...styles.title,
+              ...styles.globalMargin,
+              top: top + 20,
+              margin: top + 20,
+              paddingBottom: 70,
+            }}>Rick and Morty App</Text>
+          )}
 
-        //Infinite scroll
-        // onEndReached={ loadPesonajes }
-        // onEndReachedThreshold= {0.4}
+          renderItem={({ item }) => (<PersonajeCard personaje={item} />)}
 
-        ListFooterComponent={(
-          <ActivityIndicator
-            style={{ height: 100 }}
-            size= {20}
-            color= 'grey'
-          />
-        )}
-      />
+          //Infinite scroll
+          // onEndReached={ loadPesonajes }
+          // onEndReachedThreshold= {0.4}
 
-      {/* <Text style={{
-            ...styles.title,
-            ...styles.globalMargin,
-            top: top + 20,
-        }}>Rick and Morty App</Text> */}
+          ListFooterComponent={(
+            <ActivityIndicator
+              style={{ height: 100 }}
+              size={20}
+              color='grey'
+            />
+          )}
+        />
+      </View>
+
     </>
   )
 }

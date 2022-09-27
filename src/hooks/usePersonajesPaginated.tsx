@@ -7,7 +7,7 @@ export const usePersonajesPaginated = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [simplePersonajeList, setSimplePersonajeList] = useState<SimplePersonaje[]>([])
-    const nextPageUrl = useRef('https://rickandmortyapi.com/api/character?limit=10');
+    const nextPageUrl = useRef('https://rickandmortyapi.com/api/character');
 
     const loadPesonajes = async() => {
 
