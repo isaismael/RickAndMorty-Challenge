@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { SimplePersonaje, Gender } from '../interfaces/personajesInterfaces';
+import ImageColors from 'react-native-image-colors';
+
+import { SimplePersonaje } from '../interfaces/personajesInterfaces';
 import { FadeInImage } from './FadeInImage';
 
 const windowWidth = Dimensions.get('window').width
@@ -10,11 +12,33 @@ interface Props {
 }
 
 export const PersonajeCard = ({ personaje }: Props) => {
+
+    const [bgColor, setBgColor] = useState('grey')
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        
+        if ( !isMounted.current ) return;
+
+        ImageColors.getColors( personaje.picture, {fallback: 'grey'} )
+        .then( colors => {
+            ( colors.platform === 'android' )
+            ? setBgColor( colors.dominant || 'grey' )
+            : setBgColor( colors.platform || 'grey' )
+        } )
+
+        return () => {
+            isMounted.current = false
+        }
+         
+    }, [])
+
     return (
         <TouchableOpacity>
             <View style={{
                 ...styles.cardContainer,
-                width: windowWidth * 0.4
+                width: windowWidth * 0.4,
+                backgroundColor: bgColor
             }}>
                 {/* name personaje */}
                 <View>
@@ -38,7 +62,6 @@ export const PersonajeCard = ({ personaje }: Props) => {
 const styles = StyleSheet.create({
     cardContainer: {
         marginHorizontal: 10,
-        backgroundColor: 'red',
         height: 120,
         width: 160,
         marginBottom: 70,
