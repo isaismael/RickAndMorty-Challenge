@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { personajesApi } from "../api/personajesApi";
+
 import { PersonajesPaginatedResponse, SimplePersonaje, Result } from '../interfaces/personajesInterfaces';
 
 

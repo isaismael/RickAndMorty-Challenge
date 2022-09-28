@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect, useRef } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import ImageColors from 'react-native-image-colors';
@@ -15,6 +16,7 @@ export const PersonajeCard = ({ personaje }: Props) => {
 
     const [bgColor, setBgColor] = useState('grey')
     const isMounted = useRef(true);
+    const navigation =  useNavigation();
 
     useEffect(() => {
         
@@ -34,7 +36,15 @@ export const PersonajeCard = ({ personaje }: Props) => {
     }, [])
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={ 
+            () => navigation.navigate('PersonajesScreen', { 
+                simplePersonaje: personaje,
+                color: bgColor
+             }) 
+        }
+        >
             <View style={{
                 ...styles.cardContainer,
                 width: windowWidth * 0.4,
@@ -73,22 +83,21 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
     },
     name: {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
-        top: 55,
-        left: 12
+        top: 56,
+        alignSelf: 'center',
     },
     personajeImage: {
         width: 120,
         height: 120,
         position: 'absolute',
         borderRadius: 100,
-        right: 10,
+        alignSelf: 'center',
         top: -30,
     },
 });

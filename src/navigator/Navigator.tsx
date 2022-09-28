@@ -3,8 +3,16 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import { PersonajesScreen } from '../screens/PersonajesScreen';
+import { SimplePersonaje } from '../interfaces/personajesInterfaces';
 
-const Stack = createStackNavigator();
+export type RootStackParams = {
+
+  HomeScreen: undefined,
+  PersonajesScreen: { simplePersonaje: SimplePersonaje, color: string }
+
+}
+
+const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigator = () => {
   return (
