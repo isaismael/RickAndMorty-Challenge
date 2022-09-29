@@ -16,34 +16,35 @@ export const PersonajeCard = ({ personaje }: Props) => {
 
     const [bgColor, setBgColor] = useState('grey')
     const isMounted = useRef(true);
-    const navigation =  useNavigation();
+    const navigation = useNavigation();
 
     useEffect(() => {
-        
-        if ( !isMounted.current ) return;
 
-        ImageColors.getColors( personaje.picture, {fallback: 'grey'} )
-        .then( colors => {
-            ( colors.platform === 'android' )
-            ? setBgColor( colors.dominant || 'grey' )
-            : setBgColor( colors.platform || 'grey' )
-        } )
+        if (!isMounted.current) return;
+
+        ImageColors.getColors(personaje.picture, { fallback: 'grey' })
+            .then(colors => {
+                (colors.platform === 'android')
+                    ? setBgColor(colors.dominant || 'grey')
+                    : setBgColor(colors.platform || 'grey')
+            })
 
         return () => {
             isMounted.current = false
         }
-         
+
     }, [])
 
+    
     return (
         <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={ 
-            () => navigation.navigate('PersonajesScreen', { 
-                simplePersonaje: personaje,
-                color: bgColor
-             }) 
-        }
+            activeOpacity={0.9}
+            onPress={
+                () => navigation.navigate('PersonajesScreen', {
+                    simplePersonaje: personaje,
+                    color: bgColor
+                })
+            }
         >
             <View style={{
                 ...styles.cardContainer,
@@ -54,6 +55,9 @@ export const PersonajeCard = ({ personaje }: Props) => {
                 <View>
                     <Text style={styles.name} >
                         {personaje.name}
+                    </Text>
+                    <Text style={styles.estado}>
+                        Estado: {personaje.status}
                     </Text>
                 </View>
 
@@ -72,7 +76,7 @@ export const PersonajeCard = ({ personaje }: Props) => {
 const styles = StyleSheet.create({
     cardContainer: {
         marginHorizontal: 10,
-        height: 120,
+        height: 140,
         width: 160,
         marginBottom: 70,
         borderRadius: 10,
@@ -99,5 +103,12 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         alignSelf: 'center',
         top: -30,
+    },
+    estado: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        top: 56,
+        alignSelf: 'center',
     },
 });

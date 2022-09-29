@@ -21,13 +21,13 @@ export const usePersonajesPaginated = () => {
 
     const mapPersonajeList = ( personajeList: Result[] ) => {
 
-        const newPersonajeList: SimplePersonaje[] = personajeList.map(( {name, url} ) => {
+        const newPersonajeList: SimplePersonaje[] = personajeList.map(( {name, url, status} ) => {
 
             const urlParts = url.split('/');
             const id = urlParts[ urlParts.length - 1 ];
             const picture = `https://rickandmortyapi.com/api/character/avatar/${ id }.jpeg`;
 
-            return { id, picture, name }
+            return { id, picture, name, status }
 
         });
         setSimplePersonajeList([ ...simplePersonajeList, ...newPersonajeList ]);

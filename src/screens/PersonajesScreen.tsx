@@ -1,13 +1,14 @@
 import React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator  } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import { StackScreenProps } from '@react-navigation/stack'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { RootStackParams } from '../navigator/Navigator'
-import  Icon  from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { FadeInImage } from '../components/FadeInImage';
 import { usePersonaje } from '../hooks/usePersonaje';
+import { PersonajeDetails } from '../components/PersonajeDetails';
 
 interface Props extends StackScreenProps<RootStackParams, 'PersonajesScreen'> { };
 
@@ -17,52 +18,58 @@ export const PersonajesScreen = ({ navigation, route }: Props) => {
   const { id, name, picture } = simplePersonaje;
   const { top } = useSafeAreaInsets();
 
-  const { isLoading, personaje } = usePersonaje( id )
+  const { isLoading, personaje } = usePersonaje(id)
 
   return (
-    <View style={{ flex: 1}} >
+    <View style={{ flex: 1,}} >
       {/* Header */}
       <View style={{
         ...styles.headerContainer,
         backgroundColor: color,
       }}>
         <TouchableOpacity
-        onPress={ () => navigation.pop() }
-        activeOpacity={0.8}
-        style={{
-          ...styles.backButton,
-          top: top + 12,
-        }}
+          onPress={() => navigation.pop()}
+          activeOpacity={0.8}
+          style={{
+            ...styles.backButton,
+            top: top + 12,
+          }}
         >
-          <Icon 
-          name="arrow-back-outline"
-          color='white'
-          size={35}
+          <Icon
+            name="arrow-back-outline"
+            color='white'
+            size={35}
           />
         </TouchableOpacity>
         {/* Personaje name */}
         <Text
-        style={{
-          ...styles.personajeName,
-          top: top,
-        }}
+          style={{
+            ...styles.personajeName,
+            top: top,
+          }}
         >
           {name}
         </Text>
         {/* Img Personaje */}
         <FadeInImage
-        uri={picture}
-        style={styles.personajeImage}
+          uri={picture}
+          style={styles.personajeImage}
         />
 
       </View>
       {/* Detalles y loading */}
-      <View style={ styles.loadingIndicator } >
-        <ActivityIndicator
-        color={color}
-        size={50}
-        />
-      </View>
+      {
+        isLoading ? (
+          <View style={styles.loadingIndicator} >
+            <ActivityIndicator
+              color={color}
+              size={50}
+            />
+          </View>
+        )
+        : <PersonajeDetails personaje={ personaje }/>
+      }
+
 
     </View>
   )
@@ -74,7 +81,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
     alignItems: 'center',
   },
-  backButton:{
+  backButton: {
     position: 'absolute',
     left: 10,
   },
@@ -85,11 +92,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   personajeImage: {
-    width: 300,
-    height: 300,
+    width: 350,
+    height: 350,
     position: 'absolute',
-    bottom: -20,
+    bottom: -40,
     borderRadius: 1000,
+    borderTopRightRadius: 1,
+    borderBottomRightRadius: 1,
+    right: 0,
   },
   loadingIndicator: {
     flex: 1,

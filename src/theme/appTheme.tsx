@@ -6,16 +6,9 @@ export const styles = StyleSheet.create({
     },
     rickBG: {
         position: 'absolute',
-        width: 300,
-        height: 300,
+        width: 330,
+        height: 100,
         top: -10,
-        right: -40,
-        opacity: 0.5,
-
-    },
-    title: {
-        fontSize: 35,
-        color: 'black',
-        fontWeight: 'bold'
+        
     },
 });
