@@ -12,6 +12,8 @@ export interface SimplePersonaje {
     color?: string
     // image: string;
     picture: string;
+    status:   string;
+    location: Location;
 }
 
 
@@ -75,6 +77,7 @@ export interface PersonajeFull {
     episode:  string[];
     url:      string;
     created:  string;
+    
 }
 
 export interface Location {

@@ -14,14 +14,13 @@ export const HomeScreen = () => {
 
   return (
     <>
-      <Image
-        source={require('../assets/rick.png')}
-        style={styles.rickBG}
-      />
+
 
       <View
         style={{
-          alignItems: 'center',}}
+          alignItems: 'center',
+          backgroundColor: '#212653'
+        }}
       >
         <FlatList
           data={simplePersonajeList}
@@ -30,13 +29,15 @@ export const HomeScreen = () => {
           numColumns={2}
           // HeaderCompont
           ListHeaderComponent={(
-            <Text style={{
-              ...styles.title,
+            <View style={{
               ...styles.globalMargin,
               top: top + 20,
               margin: top + 20,
-              paddingBottom: 70,
-            }}>Rick and Morty App</Text>
+              paddingBottom: 170,
+            }}><Image
+                source={require('../assets/logo.png')}
+                style={styles.rickBG}
+              /></View>
           )}
 
           renderItem={({ item }) => (<PersonajeCard personaje={item} />)}
