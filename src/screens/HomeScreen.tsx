@@ -43,8 +43,8 @@ export const HomeScreen = () => {
           renderItem={({ item }) => (<PersonajeCard personaje={item} />)}
 
           //Infinite scroll
-          // onEndReached={ loadPesonajes }
-          // onEndReachedThreshold= {0.4}
+          onEndReached={ loadPesonajes }
+          onEndReachedThreshold= {0.4}
 
           ListFooterComponent={(
             <ActivityIndicator
