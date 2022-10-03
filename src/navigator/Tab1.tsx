@@ -4,6 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import { PersonajesScreen } from '../screens/PersonajesScreen';
 import { SimplePersonaje } from '../interfaces/personajesInterfaces';
+import { LoginScreen } from '../screens/LoginScreen';
+import { StackRouter } from '@react-navigation/native';
+import { RegisterScreen } from '../screens/RegisterScreen';
+import { ProtectedScreen } from '../screens/ProtectedScreen';
 
 export type RootStackParams = {
 
@@ -24,6 +28,9 @@ export const Tab1 = () => {
       }
     }}
     >
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+      <Stack.Screen name="ProtectedScreen" component={ProtectedScreen} />
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="PersonajesScreen" component={PersonajesScreen} />
     </Stack.Navigator>
